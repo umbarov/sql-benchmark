@@ -1,13 +1,13 @@
-﻿using System.Data.SqlClient;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace SqlBenchmark
 {
 	[SimpleJob(RuntimeMoniker.Net472, baseline: true)]
 	[SimpleJob(RuntimeMoniker.NetCoreApp31)]
-	public class MsSqlConnection
+	public class PostgreSqlConnection
 	{
 		private string _connectionString = "";
 
@@ -18,13 +18,13 @@ namespace SqlBenchmark
 				.AddJsonFile("./appsettings.json")
 				.Build();
 
-			_connectionString = config["MsSqlConnectionStrings:DefaultConnection"];
+			_connectionString = config["PostgreSqlConnectionStrings:DefaultConnection"];
 		}
 
 		[Benchmark]
 		public void Connect()
 		{
-			using (var con = new SqlConnection(_connectionString))
+			using (var con = new NpgsqlConnection(_connectionString))
 			{
 				con.Open();
 			}

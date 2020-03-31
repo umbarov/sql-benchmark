@@ -1,5 +1,4 @@
-﻿using System;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
 
 namespace SqlBenchmark
 {
@@ -7,7 +6,8 @@ namespace SqlBenchmark
 	{
 		static void Main(string[] args)
 		{
-			var summary = BenchmarkRunner.Run<MsSqlConnection>();
+			var msSqlSummary = BenchmarkRunner.Run<MsSqlConnection>();
+			var postgreSqlSummary = BenchmarkRunner.Run<PostgreSqlConnection>();
 		}
 	}
 }
